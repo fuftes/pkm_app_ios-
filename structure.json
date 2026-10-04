@@ -1,0 +1,354 @@
+[
+ {
+  "title": "Сьогодні",
+  "v1": true,
+  "items": [
+   {
+    "title": "Головна: найближча служба, слово, адреса",
+    "type": "composed",
+    "note": "збирається із schedule + sermons + places"
+   }
+  ]
+ },
+ {
+  "title": "Парафія",
+  "v1": true,
+  "items": [
+   {
+    "title": "Парафія сьогодні",
+    "v1": true,
+    "type": "page",
+    "ref": "pages/parafiya-sogodni.md",
+    "status": "thin"
+   },
+   {
+    "title": "Історія парафії",
+    "v1": true,
+    "type": "page",
+    "ref": "pages/istoriya-parafiyi.md",
+    "status": "ok"
+   },
+   {
+    "title": "Святі Покровителі",
+    "v1": true,
+    "type": "page",
+    "ref": "pages/svyati-pokrovyteli.md",
+    "status": "ok"
+   },
+   {
+    "title": "Новини парафії",
+    "v1": true,
+    "type": "stream",
+    "url": "https://pkm.if.ua/category/novyny-parafiyi/",
+    "note": "потік новин/статей; на старому сайті"
+   },
+   {
+    "title": "Новини УГКЦ",
+    "v1": true,
+    "type": "stream",
+    "url": "https://pkm.if.ua/category/novyny-ugkts/",
+    "note": "потік новин/статей; на старому сайті"
+   }
+  ]
+ },
+ {
+  "title": "Священники",
+  "v1": true,
+  "items": [
+   {
+    "title": "Парох",
+    "v1": true,
+    "type": "page",
+    "ref": "pages/paroh.md",
+    "status": "ok"
+   },
+   {
+    "title": "Священники-сотрудники",
+    "v1": true,
+    "type": "page",
+    "ref": "pages/sotrudnyky.md",
+    "status": "thin"
+   },
+   {
+    "title": "Запитай священника",
+    "v1": false,
+    "type": "page",
+    "ref": "pages/zapytaj-svyashhenyka.md",
+    "status": "thin"
+   },
+   {
+    "title": "Прохання про молитву",
+    "v1": false,
+    "type": "page",
+    "ref": "pages/prohannya-pro-molytvu.md",
+    "status": "thin"
+   },
+   {
+    "title": "Сестри-монахині",
+    "v1": true,
+    "type": "page",
+    "ref": "pages/sestry-monahyni.md",
+    "status": "ok"
+   },
+   {
+    "title": "Семінаристи",
+    "v1": true,
+    "type": "page",
+    "ref": "pages/seminarysty.md",
+    "status": "thin"
+   },
+   {
+    "title": "Паламар",
+    "v1": true,
+    "type": "page",
+    "ref": "pages/palamar.md",
+    "status": "thin"
+   },
+   {
+    "title": "Дяк",
+    "v1": true,
+    "type": "page",
+    "ref": "pages/dyak.md",
+    "status": "thin"
+   }
+  ]
+ },
+ {
+  "title": "Для дітей",
+  "v1": true,
+  "items": [
+   {
+    "title": "Катехизація",
+    "v1": true,
+    "type": "page",
+    "ref": "pages/katehyzatsiya.md",
+    "status": "ok"
+   },
+   {
+    "title": "Ораторій",
+    "v1": true,
+    "type": "page",
+    "ref": "pages/oratorij.md",
+    "status": "ok"
+   },
+   {
+    "title": "Дитячий майданчик",
+    "v1": true,
+    "type": "page",
+    "ref": "pages/dytyachyj-majdanchyk.md",
+    "status": "thin"
+   }
+  ]
+ },
+ {
+  "title": "Жертводавцям",
+  "v1": true,
+  "items": [
+   {
+    "title": "Жертводавцям",
+    "v1": true,
+    "type": "page",
+    "ref": "pages/zhertvodavtsyam.md",
+    "status": "ok"
+   }
+  ]
+ },
+ {
+  "title": "Чернеча родина",
+  "v1": false,
+  "items": [
+   {
+    "title": "Згромадження Отців ЗВС",
+    "v1": false,
+    "type": "page",
+    "ref": "pages/zgromadzhennya-ottsiv-zvs.md",
+    "status": "ok"
+   },
+   {
+    "title": "Згромадження Сестер СГДММ",
+    "v1": false,
+    "type": "page",
+    "ref": "pages/zgromadzhennya-sester-sgdmm.md",
+    "status": "ok"
+   },
+   {
+    "title": "ІІІ Чин ЗВС",
+    "v1": false,
+    "type": "page",
+    "ref": "pages/iii-chyn-zvs.md",
+    "status": "empty"
+   },
+   {
+    "title": "Дім Милосердя",
+    "v1": false,
+    "type": "page",
+    "ref": "pages/dim-myloserdya.md",
+    "status": "empty"
+   },
+   {
+    "title": "Історія Згромадження у світі",
+    "v1": false,
+    "type": "page",
+    "ref": "pages/istoriya-zasnuvannya.md",
+    "status": "ok"
+   },
+   {
+    "title": "Історія Згромадження в Україні",
+    "v1": false,
+    "type": "page",
+    "ref": "pages/istoriya-v-ukrayini.md",
+    "status": "ok"
+   },
+   {
+    "title": "Харизма",
+    "v1": false,
+    "type": "page",
+    "ref": "pages/haryzma.md",
+    "status": "ok"
+   },
+   {
+    "title": "Власні апостоляти",
+    "v1": false,
+    "type": "page",
+    "ref": "pages/vlasni-apostoliaty.md",
+    "status": "ok"
+   }
+  ]
+ },
+ {
+  "title": "Духовні вправи",
+  "v1": true,
+  "items": [
+   {
+    "title": "Що таке Духовні вправи?",
+    "v1": true,
+    "type": "page",
+    "ref": "pages/shcho-take-dukhovni-vpravy.md",
+    "status": "ok"
+   },
+   {
+    "title": "Про автора — св. Ігнатія з Лойоли",
+    "v1": true,
+    "type": "page",
+    "ref": "pages/pro-avtora-sv-ihnatii-z-loioly.md",
+    "status": "ok"
+   },
+   {
+    "title": "Дати проведення",
+    "v1": true,
+    "type": "page",
+    "ref": "pages/daty-provedennia.md",
+    "status": "empty"
+   },
+   {
+    "title": "Запис",
+    "v1": true,
+    "type": "page",
+    "ref": "pages/zapys.md",
+    "status": "thin"
+   }
+  ]
+ },
+ {
+  "title": "Корисно знати",
+  "v1": false,
+  "items": [
+   {
+    "title": "Проповіді",
+    "v1": true,
+    "type": "sermons",
+    "ref": "sermons/"
+   },
+   {
+    "title": "Відеопроповіді",
+    "v1": true,
+    "type": "videos",
+    "ref": "videos.json"
+   },
+   {
+    "title": "Вісник «Місіонери Слова»",
+    "v1": false,
+    "type": "stream",
+    "url": "https://pkm.if.ua/category/visnyk-misionery-slova/",
+    "note": "потік новин/статей; на старому сайті"
+   },
+   {
+    "title": "Tu es Petrus",
+    "v1": false,
+    "type": "page",
+    "ref": "pages/tu-es-petrus.md",
+    "status": "empty"
+   },
+   {
+    "title": "Статті",
+    "v1": false,
+    "type": "stream",
+    "url": "https://pkm.if.ua/category/statti/",
+    "note": "потік новин/статей; на старому сайті"
+   },
+   {
+    "title": "Буклети",
+    "v1": true,
+    "type": "documents",
+    "ref": "documents.json"
+   }
+  ]
+ },
+ {
+  "title": "Богослужіння",
+  "v1": true,
+  "items": [
+   {
+    "title": "Богослужіння",
+    "v1": true,
+    "type": "schedule",
+    "ref": "schedule.json"
+   }
+  ]
+ },
+ {
+  "title": "Контакти",
+  "v1": true,
+  "items": [
+   {
+    "title": "Івано-Франківськ",
+    "v1": true,
+    "type": "page",
+    "ref": "pages/ivano-frankivsk.md",
+    "status": "ok"
+   },
+   {
+    "title": "Вінниця",
+    "v1": true,
+    "type": "page",
+    "ref": "pages/vinnytsya.md",
+    "status": "thin"
+   },
+   {
+    "title": "Дубове",
+    "v1": true,
+    "type": "page",
+    "ref": "pages/dubove.md",
+    "status": "ok"
+   },
+   {
+    "title": "Скадовськ",
+    "v1": true,
+    "type": "page",
+    "ref": "pages/skadovsk.md",
+    "status": "ok"
+   }
+  ]
+ },
+ {
+  "title": "Галерея",
+  "v1": true,
+  "items": [
+   {
+    "title": "Зовні · Всередині",
+    "type": "gallery",
+    "ref": "gallery.json"
+   }
+  ]
+ }
+]
