@@ -1,62 +1,82 @@
 [
  {
   "file": "booklets/Yak-povodutus-y-hrami.pdf",
-  "title": "Yak povodutus y hrami"
+  "title": "Як поводитися в храмі?",
+  "group": "Парафія",
+  "colored": "booklets/colored/Yak-povodutus-y-hrami.pdf"
  },
  {
   "file": "booklets/b-iak-molytysia-na-vervytsi.pdf",
-  "title": "b iak molytysia na vervytsi"
+  "title": "Як молитися на Вервиці?",
+  "group": "Молитва"
  },
  {
   "file": "booklets/b-presvyate-tayinstvo-yevharystiyi.pdf",
-  "title": "b presvyate tayinstvo yevharystiyi"
+  "title": "Таїнство Пресвятої Євхаристії",
+  "group": "Таїнства"
  },
  {
   "file": "booklets/b-svyate-tayinstvo-hreshhennya.pdf",
-  "title": "b svyate tayinstvo hreshhennya"
+  "title": "Святе Таїнство Хрещення. Що необхідно знати для Хрещення?",
+  "group": "Таїнства"
  },
  {
   "file": "booklets/b-svyate-tayinstvo-podruzhzhya.pdf",
-  "title": "b svyate tayinstvo podruzhzhya"
+  "title": "Святе Таїнство Подружжя",
+  "group": "Таїнства"
  },
  {
   "file": "booklets/b-svyate-tayinstvo-pokayannya.pdf",
-  "title": "b svyate tayinstvo pokayannya"
+  "title": "Святе Таїнство Покаяння",
+  "group": "Таїнства"
  },
  {
   "file": "booklets/buklet-pro-ive.pdf",
-  "title": "buklet pro ive"
+  "title": "Парафія Свв. Кирила і Методія. Згромадження Воплоченого Слова",
+  "group": "Парафія"
  },
  {
   "file": "booklets/byklet-eleopomazania.pdf",
-  "title": "byklet eleopomazania"
+  "title": "Святе Таїнство Єлеопомазання",
+  "group": "Таїнства",
+  "colored": "booklets/colored/byklet-eleopomazania.pdf"
  },
  {
   "file": "booklets/byklet-murupomazania.pdf",
-  "title": "byklet murupomazania"
+  "title": "Святе Таїнство Миропомазання",
+  "group": "Таїнства",
+  "colored": "booklets/colored/byklet-murupomazania.pdf"
  },
  {
   "file": "booklets/byklet-pohoron.pdf",
-  "title": "byklet pohoron"
+  "title": "Християнський похорон. Що треба знати християнинові?",
+  "group": "Парафія",
+  "colored": "booklets/colored/byklet-pohoron.pdf"
  },
  {
   "file": "booklets/byklet-sheptytskyy.pdf",
-  "title": "byklet sheptytskyy"
+  "title": "Рік Митрополита Андрея Шептицького",
+  "group": "Молитва"
  },
  {
   "file": "booklets/byklet-sviaschenstvo.pdf",
-  "title": "byklet sviaschenstvo"
+  "title": "Святе Таїнство Священства",
+  "group": "Таїнства",
+  "colored": "booklets/colored/byklet-sviaschenstvo.pdf"
  },
  {
   "file": "booklets/diva-mariya-gvadelupska.pdf",
-  "title": "diva mariya gvadelupska"
+  "title": "Діва Марія Гваделупська",
+  "group": "Молитва"
  },
  {
   "file": "booklets/dyhovne-ysunovlenia-2026.pdf",
-  "title": "dyhovne ysunovlenia 2026"
+  "title": "Духовне Усиновлення",
+  "group": "Молитва"
  },
  {
   "file": "booklets/zdorova-roduna-2026.pdf",
-  "title": "zdorova roduna 2026"
+  "title": "Здорова родина — міцна держава",
+  "group": "Родина"
  }
 ]
