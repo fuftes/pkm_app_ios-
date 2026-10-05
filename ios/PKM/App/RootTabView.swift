@@ -27,16 +27,16 @@ struct RootTabView: View {
                 MoreView()
             }
         }
-        .modifier(LiquidGlassTabBar())
+        .modifier(PinnedTabBar())
     }
 }
 
-/// Налаштування, доступні лише на iOS 26+: панель вкладок зменшується, коли гортаєш униз.
-private struct LiquidGlassTabBar: ViewModifier {
+/// Панель вкладок завжди повного розміру — не зменшується під час прокрутки (iOS 26+).
+private struct PinnedTabBar: ViewModifier {
     func body(content: Content) -> some View {
         #if compiler(>=6.2)
         if #available(iOS 26.0, *) {
-            content.tabBarMinimizeBehavior(.onScrollDown)
+            content.tabBarMinimizeBehavior(.never)
         } else {
             content
         }

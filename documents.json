@@ -3,80 +3,95 @@
   "file": "booklets/Yak-povodutus-y-hrami.pdf",
   "title": "Як поводитися в храмі?",
   "group": "Парафія",
-  "colored": "booklets/colored/Yak-povodutus-y-hrami.pdf"
+  "colored": "booklets/colored/Yak-povodutus-y-hrami.pdf",
+  "cover": "booklets/covers/Yak-povodutus-y-hrami.jpg"
  },
  {
   "file": "booklets/b-iak-molytysia-na-vervytsi.pdf",
   "title": "Як молитися на Вервиці?",
-  "group": "Молитва"
+  "group": "Молитва",
+  "cover": "booklets/covers/b-iak-molytysia-na-vervytsi.jpg"
  },
  {
   "file": "booklets/b-presvyate-tayinstvo-yevharystiyi.pdf",
   "title": "Таїнство Пресвятої Євхаристії",
-  "group": "Таїнства"
+  "group": "Таїнства",
+  "cover": "booklets/covers/b-presvyate-tayinstvo-yevharystiyi.jpg"
  },
  {
   "file": "booklets/b-svyate-tayinstvo-hreshhennya.pdf",
   "title": "Святе Таїнство Хрещення. Що необхідно знати для Хрещення?",
-  "group": "Таїнства"
+  "group": "Таїнства",
+  "cover": "booklets/covers/b-svyate-tayinstvo-hreshhennya.jpg"
  },
  {
   "file": "booklets/b-svyate-tayinstvo-podruzhzhya.pdf",
   "title": "Святе Таїнство Подружжя",
-  "group": "Таїнства"
+  "group": "Таїнства",
+  "cover": "booklets/covers/b-svyate-tayinstvo-podruzhzhya.jpg"
  },
  {
   "file": "booklets/b-svyate-tayinstvo-pokayannya.pdf",
   "title": "Святе Таїнство Покаяння",
-  "group": "Таїнства"
+  "group": "Таїнства",
+  "cover": "booklets/covers/b-svyate-tayinstvo-pokayannya.jpg"
  },
  {
   "file": "booklets/buklet-pro-ive.pdf",
   "title": "Парафія Свв. Кирила і Методія. Згромадження Воплоченого Слова",
-  "group": "Парафія"
+  "group": "Парафія",
+  "cover": "booklets/covers/buklet-pro-ive.jpg"
  },
  {
   "file": "booklets/byklet-eleopomazania.pdf",
   "title": "Святе Таїнство Єлеопомазання",
   "group": "Таїнства",
-  "colored": "booklets/colored/byklet-eleopomazania.pdf"
+  "colored": "booklets/colored/byklet-eleopomazania.pdf",
+  "cover": "booklets/covers/byklet-eleopomazania.jpg"
  },
  {
   "file": "booklets/byklet-murupomazania.pdf",
   "title": "Святе Таїнство Миропомазання",
   "group": "Таїнства",
-  "colored": "booklets/colored/byklet-murupomazania.pdf"
+  "colored": "booklets/colored/byklet-murupomazania.pdf",
+  "cover": "booklets/covers/byklet-murupomazania.jpg"
  },
  {
   "file": "booklets/byklet-pohoron.pdf",
   "title": "Християнський похорон. Що треба знати християнинові?",
   "group": "Парафія",
-  "colored": "booklets/colored/byklet-pohoron.pdf"
+  "colored": "booklets/colored/byklet-pohoron.pdf",
+  "cover": "booklets/covers/byklet-pohoron.jpg"
  },
  {
   "file": "booklets/byklet-sheptytskyy.pdf",
   "title": "Рік Митрополита Андрея Шептицького",
-  "group": "Молитва"
+  "group": "Молитва",
+  "cover": "booklets/covers/byklet-sheptytskyy.jpg"
  },
  {
   "file": "booklets/byklet-sviaschenstvo.pdf",
   "title": "Святе Таїнство Священства",
   "group": "Таїнства",
-  "colored": "booklets/colored/byklet-sviaschenstvo.pdf"
+  "colored": "booklets/colored/byklet-sviaschenstvo.pdf",
+  "cover": "booklets/covers/byklet-sviaschenstvo.jpg"
  },
  {
   "file": "booklets/diva-mariya-gvadelupska.pdf",
   "title": "Діва Марія Гваделупська",
-  "group": "Молитва"
+  "group": "Молитва",
+  "cover": "booklets/covers/diva-mariya-gvadelupska.jpg"
  },
  {
   "file": "booklets/dyhovne-ysunovlenia-2026.pdf",
   "title": "Духовне Усиновлення",
-  "group": "Молитва"
+  "group": "Молитва",
+  "cover": "booklets/covers/dyhovne-ysunovlenia-2026.jpg"
  },
  {
   "file": "booklets/zdorova-roduna-2026.pdf",
   "title": "Здорова родина — міцна держава",
-  "group": "Родина"
+  "group": "Родина",
+  "cover": "booklets/covers/zdorova-roduna-2026.jpg"
  }
 ]

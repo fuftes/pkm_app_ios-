@@ -39,10 +39,19 @@ struct Booklet: Decodable, Identifiable, Hashable {
     let title: String
     let group: String?
     let colored: String?
+    /// Обкладинка (`booklets/covers/*.jpg`) — вшита в застосунок як папка `covers`.
+    let cover: String?
 
     var id: String { file }
     /// Кольорова версія, якщо є, інакше звичайна.
     var url: URL { AppConfig.contentURL(colored ?? file) }
+
+    var coverFileURL: URL? {
+        guard let cover else { return nil }
+        return Bundle.main.resourceURL?
+            .appendingPathComponent("covers")
+            .appendingPathComponent((cover as NSString).lastPathComponent)
+    }
 }
 
 /// Фото з `gallery.json`.

@@ -14,6 +14,7 @@
 		C0FFEE000000000000000204 /* videos.json in Resources */ = {isa = PBXBuildFile; fileRef = C0FFEE000000000000000104 /* videos.json */; };
 		C0FFEE000000000000000205 /* documents.json in Resources */ = {isa = PBXBuildFile; fileRef = C0FFEE000000000000000105 /* documents.json */; };
 		C0FFEE000000000000000206 /* gallery.json in Resources */ = {isa = PBXBuildFile; fileRef = C0FFEE000000000000000106 /* gallery.json */; };
+		C0FFEE000000000000000207 /* covers in Resources */ = {isa = PBXBuildFile; fileRef = C0FFEE000000000000000107 /* covers */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		C0FFEE000000000000000104 /* videos.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = videos.json; path = ../videos.json; sourceTree = "<group>"; };
 		C0FFEE000000000000000105 /* documents.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = documents.json; path = ../documents.json; sourceTree = "<group>"; };
 		C0FFEE000000000000000106 /* gallery.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = gallery.json; path = ../gallery.json; sourceTree = "<group>"; };
+		C0FFEE000000000000000107 /* covers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = covers; path = ../booklets/covers; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -65,6 +67,7 @@
 				C0FFEE000000000000000104 /* videos.json */,
 				C0FFEE000000000000000105 /* documents.json */,
 				C0FFEE000000000000000106 /* gallery.json */,
+				C0FFEE000000000000000107 /* covers */,
 			);
 			name = Content;
 			sourceTree = "<group>";
@@ -148,6 +151,7 @@
 				C0FFEE000000000000000204 /* videos.json in Resources */,
 				C0FFEE000000000000000205 /* documents.json in Resources */,
 				C0FFEE000000000000000206 /* gallery.json in Resources */,
+				C0FFEE000000000000000207 /* covers in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
