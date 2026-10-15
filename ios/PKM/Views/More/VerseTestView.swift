@@ -1,23 +1,37 @@
 import SwiftUI
 import WidgetKit
 
-/// ТИМЧАСОВО: ручний вибір вірша для віджетів, щоб перевірити їх на своєму телефоні.
+/// ТИМЧАСОВО: перевірка віджета «Слово на день» на заблокованому екрані.
+/// 1) Вимірювання: на віджеті випадкові символи заданої довжини — видно, скільки вміщається.
+/// 2) Вибір будь-якого вірша вручну.
 /// Перед публікацією застосунку прибрати цей екран і пункт у «Інше».
 struct VerseTestView: View {
+    @State private var measuring = VerseStore.measureEnabled
+    @State private var length = VerseStore.measureLength
+    @State private var withReference = VerseStore.showReference
+    @State private var fontSize = VerseStore.lockFontSize
     @State private var chosenID: Int? = VerseStore.overrideID
     @State private var search = ""
-    @State private var gap: CGFloat = VerseStore.widgetGap
 
     private var verses: [Verse] { VerseStore.all }
 
-    /// Розмір віджета на заблокованому екрані. Відомий, коли віджет уже стоїть на екрані
-    /// і App Group працює; інакше — приблизний.
+    /// Розмір віджета. Відомий, коли віджет уже стоїть на заблокованому екрані; інакше — приблизний.
     private var lockSize: CGSize { VerseStore.lockWidgetSize ?? CGSize(width: 160, height: 72) }
     private var lockSizeIsKnown: Bool { VerseStore.lockWidgetSize != nil }
 
     private var shownVerse: Verse {
         if let chosenID, let verse = VerseStore.verse(id: chosenID) { return verse }
         return VerseStore.verse(for: .now) { fits($0) }
+    }
+
+    private var previewContent: LockContent {
+        measuring
+            ? .filler(length: length, withReference: withReference)
+            : .verse(shownVerse, withReference: withReference)
+    }
+
+    private var calculatedMax: Int {
+        LockFit.maxLength(in: lockSize, fontSize: fontSize, withReference: withReference)
     }
 
     private var filtered: [Verse] {
@@ -31,48 +45,69 @@ struct VerseTestView: View {
     var body: some View {
         List {
             Section {
-                PairPreview(verse: shownVerse, size: lockSize, gap: gap)
+                LockTextView(content: previewContent, fontSize: fontSize)
+                    .frame(width: lockSize.width, height: lockSize.height)
+                    .padding(12)
+                    .foregroundStyle(.white)
+                    .background(Color.black.gradient, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                    .environment(\.colorScheme, .dark)
+                    .frame(maxWidth: .infinity)
                     .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
+
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(chosenID == nil ? "Режим: автоматично (вірш дня)" : "Режим: вибрано вручну")
-                        .font(.subheadline.weight(.semibold))
-                    Text("\(shownVerse.ref) · \(shownVerse.text.count) знаків")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                    Text("Розмір віджета: \(Int(lockSize.width)) × \(Int(lockSize.height)) пт"
+                         + (lockSizeIsKnown ? "" : " (приблизно)"))
+                    Text("За розрахунком вміщається до \(calculatedMax) знаків тексту"
+                         + (withReference ? " + посилання" : ""))
                     if !lockSizeIsKnown {
-                        Text("Розмір віджета ще невідомий: додайте пару віджетів на заблокований екран і поверніться сюди.")
-                            .font(.caption)
+                        Text("Додайте віджет «Слово на день» на заблокований екран і поверніться сюди — тоді розмір буде точний.")
                             .foregroundStyle(.orange)
                     }
                 }
+                .font(.caption)
+                .foregroundStyle(.secondary)
             } header: {
-                Text("Так виглядатиме пара на заблокованому екрані")
+                Text("Попередній перегляд")
             }
 
             Section {
-                VStack(alignment: .leading, spacing: 6) {
-                    HStack {
-                        Text("Проміжок між словами")
-                        Spacer()
-                        Text("\(Int(gap)) пт")
-                            .monospacedDigit()
-                            .foregroundStyle(.secondary)
-                    }
-                    Slider(value: $gap, in: 4...30, step: 1, onEditingChanged: { editing in
-                        if !editing { saveGap() }
-                    })
+                Toggle("Режим вимірювання", isOn: $measuring)
+                    .onChange(of: measuring) { save() }
+
+                HStack {
+                    Text("Знаків тексту")
+                    Spacer()
+                    Text("\(length)")
+                        .monospacedDigit()
+                        .font(.title3.weight(.semibold))
                 }
-                Button("Скинути до \(Int(VerseStore.defaultWidgetGap)) пт") {
-                    gap = VerseStore.defaultWidgetGap
-                    saveGap()
+                HStack(spacing: 10) {
+                    StepButton(title: "−10") { change(by: -10) }
+                    StepButton(title: "−1") { change(by: -1) }
+                    StepButton(title: "+1") { change(by: 1) }
+                    StepButton(title: "+10") { change(by: 10) }
                 }
+                .disabled(!measuring)
+
+                Toggle("Показувати посилання", isOn: $withReference)
+                    .onChange(of: withReference) { save() }
+                if withReference {
+                    Text("У вимірюванні — найдовше: «\(LockContent.longestReference)», \(LockContent.longestReference.count) знаків.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+
+                Stepper(value: $fontSize, in: 11...20, step: 1) {
+                    Text("Шрифт: \(Int(fontSize)) пт")
+                }
+                .onChange(of: fontSize) { save() }
             } header: {
-                Text("Проміжок")
+                Text("Вимірювання місткості")
             } footer: {
-                Text("Підберіть так, щоб відстань між словами всередині рядка дорівнювала відстані між двома віджетами на заблокованому екрані. Надішліть число, яке підійшло, — я зашию його як стандартне.")
+                Text("Увімкніть режим, заблокуйте телефон і дивіться на віджет. Додавайте знаки, доки текст не обріжеться «…». Остання кількість без «…» — і є місткість. Надішліть її мені разом із моделлю iPhone.")
             }
 
-            Section("Керування") {
+            Section("Вірш вручну") {
                 HStack {
                     Button {
                         step(by: -1)
@@ -83,8 +118,10 @@ struct VerseTestView: View {
                     Button {
                         step(by: 1)
                     } label: {
-                        Label("Наступний", systemImage: "chevron.right")
-                            .labelStyle(TrailingIconLabelStyle())
+                        HStack(spacing: 6) {
+                            Text("Наступний")
+                            Image(systemName: "chevron.right")
+                        }
                     }
                 }
                 .buttonStyle(.borderless)
@@ -115,26 +152,24 @@ struct VerseTestView: View {
                     Button {
                         choose(verse.id)
                     } label: {
-                        VerseRow(verse: verse,
-                                 isChosen: verse.id == chosenID,
-                                 fits: fits(verse))
+                        VerseRow(verse: verse, isChosen: verse.id == chosenID, fits: fits(verse))
                     }
                     .buttonStyle(.plain)
                 }
             }
         }
         .searchable(text: $search, prompt: "Пошук у віршах")
-        .navigationTitle("Тест віджетів")
+        .navigationTitle("Тест віджета")
         .navigationBarTitleDisplayMode(.inline)
     }
 
     private func fits(_ verse: Verse) -> Bool {
-        SplitLayout.fits(verse, columnWidth: lockSize.width, height: lockSize.height, gap: gap)
+        LockFit.fits(verse, in: lockSize, fontSize: fontSize, withReference: withReference)
     }
 
-    private func saveGap() {
-        VerseStore.widgetGap = gap
-        WidgetCenter.shared.reloadAllTimelines()
+    private func change(by delta: Int) {
+        length = min(400, max(1, length + delta))
+        save()
     }
 
     private func step(by offset: Int) {
@@ -145,30 +180,28 @@ struct VerseTestView: View {
 
     private func choose(_ id: Int?) {
         chosenID = id
-        VerseStore.overrideID = id
+        measuring = false
+        save()
+    }
+
+    private func save() {
+        VerseStore.measureEnabled = measuring
+        VerseStore.measureLength = length
+        VerseStore.showReference = withReference
+        VerseStore.lockFontSize = fontSize
+        VerseStore.overrideID = chosenID
         WidgetCenter.shared.reloadAllTimelines()
     }
 }
 
-/// Дві половини поруч — як на заблокованому екрані.
-private struct PairPreview: View {
-    let verse: Verse
-    let size: CGSize
-    let gap: CGFloat
+private struct StepButton: View {
+    let title: String
+    let action: () -> Void
 
     var body: some View {
-        // Відстань між половинами = проміжок між словами, як на заблокованому екрані.
-        HStack(spacing: gap) {
-            SplitHalfView(verse: verse, side: .left, gap: gap)
-                .frame(width: size.width, height: size.height)
-            SplitHalfView(verse: verse, side: .right, gap: gap)
-                .frame(width: size.width, height: size.height)
-        }
-        .padding(10)
-        .foregroundStyle(.white)
-        .background(Color.black.gradient, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-        .environment(\.colorScheme, .dark)
-        .frame(maxWidth: .infinity)
+        Button(title, action: action)
+            .buttonStyle(.bordered)
+            .frame(maxWidth: .infinity)
     }
 }
 
@@ -198,14 +231,5 @@ private struct VerseRow: View {
             }
         }
         .contentShape(Rectangle())
-    }
-}
-
-private struct TrailingIconLabelStyle: LabelStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        HStack(spacing: 6) {
-            configuration.title
-            configuration.icon
-        }
     }
 }

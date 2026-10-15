@@ -38,7 +38,10 @@ enum VerseStore {
         static let start = "verses.startDay"
         static let override = "verses.overrideID"
         static let lockSize = "verses.lockWidgetSize"
-        static let gap = "verses.widgetGap"
+        static let measureOn = "verses.measure.enabled"
+        static let measureLength = "verses.measure.length"
+        static let showRef = "verses.lock.showReference"
+        static let fontSize = "verses.lock.fontSize"
     }
 
     /// Випадкове число, створене один раз на цьому телефоні. З нього виходить особистий порядок віршів.
@@ -122,19 +125,33 @@ enum VerseStore {
         }
     }
 
-    // MARK: Проміжок між віджетами
+    // MARK: Вимірювання місткості (тимчасово)
 
-    /// Відстань між лівим і правим віджетом на заблокованому екрані, у пунктах.
-    /// Стільки ж і між усіма словами, щоб межа між віджетами виглядала як звичайний проміжок.
-    /// Точне значення iOS не повідомляє, тому його підбирають на тестовому екрані.
-    static let defaultWidgetGap: CGFloat = 12
+    /// Поки увімкнено, віджет на заблокованому екрані показує випадкові символи заданої довжини,
+    /// щоб на око перевірити, скільки знаків туди вміщається.
+    static var measureEnabled: Bool {
+        get { defaults.bool(forKey: Key.measureOn) }
+        set { defaults.set(newValue, forKey: Key.measureOn) }
+    }
 
-    static var widgetGap: CGFloat {
-        get {
-            let value = defaults.double(forKey: Key.gap)
-            return value > 0 ? CGFloat(value) : defaultWidgetGap
-        }
-        set { defaults.set(Double(newValue), forKey: Key.gap) }
+    /// Скільки знаків (разом із пробілами) у тексті без посилання.
+    static var measureLength: Int {
+        get { let value = defaults.integer(forKey: Key.measureLength); return value > 0 ? value : 80 }
+        set { defaults.set(newValue, forKey: Key.measureLength) }
+    }
+
+    /// Чи додавати до тексту посилання (у вимірюванні — найдовше, «— 1 Пт 1,24-25»).
+    static var showReference: Bool {
+        get { defaults.object(forKey: Key.showRef) as? Bool ?? true }
+        set { defaults.set(newValue, forKey: Key.showRef) }
+    }
+
+    /// Розмір шрифту на віджеті заблокованого екрана.
+    static let defaultLockFontSize: CGFloat = 15
+
+    static var lockFontSize: CGFloat {
+        get { let value = defaults.double(forKey: Key.fontSize); return value > 0 ? CGFloat(value) : defaultLockFontSize }
+        set { defaults.set(Double(newValue), forKey: Key.fontSize) }
     }
 
     // MARK: Розмір віджета на заблокованому екрані

@@ -4,45 +4,22 @@ import WidgetKit
 @main
 struct PKMWidgetBundle: WidgetBundle {
     var body: some Widget {
-        VerseLockLeftWidget()
-        VerseLockRightWidget()
+        VerseLockWidget()
         VerseHomeWidget()
     }
 }
 
-// MARK: Заблокований екран: пара «ліва + права половина»
+// MARK: Заблокований екран: один прямокутний віджет
 
-struct VerseLockLeftWidget: Widget {
+struct VerseLockWidget: Widget {
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: "VerseLockLeft", provider: VerseProvider(lockScreenPair: true)) { entry in
-            LockHalfWidgetView(entry: entry, side: .left)
+        StaticConfiguration(kind: "VerseLock", provider: VerseProvider(lockScreen: true)) { entry in
+            LockTextView(content: entry.content, fontSize: entry.fontSize)
+                .containerBackground(for: .widget) { Color.clear }
         }
-        .configurationDisplayName("Вірш · ліва половина")
-        .description("Поставте ліворуч, а праву половину — поруч праворуч. Текст продовжиться в ній.")
+        .configurationDisplayName("Слово на день")
+        .description("Короткий уривок із Нового Завіту на заблокованому екрані.")
         .supportedFamilies([.accessoryRectangular])
-        .contentMarginsDisabled()
-    }
-}
-
-struct VerseLockRightWidget: Widget {
-    var body: some WidgetConfiguration {
-        StaticConfiguration(kind: "VerseLockRight", provider: VerseProvider(lockScreenPair: true)) { entry in
-            LockHalfWidgetView(entry: entry, side: .right)
-        }
-        .configurationDisplayName("Вірш · права половина")
-        .description("Поставте праворуч від лівої половини.")
-        .supportedFamilies([.accessoryRectangular])
-        .contentMarginsDisabled()
-    }
-}
-
-struct LockHalfWidgetView: View {
-    let entry: VerseEntry
-    let side: SplitSide
-
-    var body: some View {
-        SplitHalfView(verse: entry.verse, side: side)
-            .containerBackground(for: .widget) { Color.clear }
     }
 }
 
@@ -50,7 +27,7 @@ struct LockHalfWidgetView: View {
 
 struct VerseHomeWidget: Widget {
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: "VerseHome", provider: VerseProvider(lockScreenPair: false)) { entry in
+        StaticConfiguration(kind: "VerseHome", provider: VerseProvider(lockScreen: false)) { entry in
             VerseHomeWidgetView(entry: entry)
         }
         .configurationDisplayName("Слово на день")
@@ -64,14 +41,14 @@ struct VerseHomeWidgetView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(entry.verse.text)
+            Text(entry.content.body)
                 .font(.system(size: 17, weight: .medium))
                 .minimumScaleFactor(0.6)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             HStack {
                 Text("Слово на день")
                 Spacer()
-                Text(entry.verse.ref)
+                Text(entry.content.reference?.replacingOccurrences(of: "— ", with: "") ?? "")
                     .fontWeight(.semibold)
             }
             .font(.caption)
@@ -82,13 +59,14 @@ struct VerseHomeWidgetView: View {
 }
 
 #Preview(as: .accessoryRectangular) {
-    VerseLockLeftWidget()
+    VerseLockWidget()
 } timeline: {
-    VerseEntry(date: .now, verse: VerseStore.all[0])
+    VerseEntry(date: .now, content: .verse(VerseStore.all[0], withReference: true), fontSize: 15)
+    VerseEntry(date: .now, content: .filler(length: 90, withReference: true), fontSize: 15)
 }
 
 #Preview(as: .systemMedium) {
     VerseHomeWidget()
 } timeline: {
-    VerseEntry(date: .now, verse: VerseStore.all[0])
+    VerseEntry(date: .now, content: .verse(VerseStore.all[0], withReference: true), fontSize: 15)
 }
