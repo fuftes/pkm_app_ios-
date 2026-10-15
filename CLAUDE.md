@@ -7,7 +7,7 @@
 1. **Зміст парафії** Святих Кирила і Методія (УГКЦ, Івано-Франківськ, сайт pkm.if.ua): `pages/`, `sermons/`, `*.json`, `booklets/`, `photos/`, `brand/`. Описано в `README.md`.
 2. **Застосунок для iPhone** у `ios/` (SwiftUI, Xcode 26, iOS 18+). Відкривати `ios/PKM.xcodeproj`. Описано в `ios/README.md`.
 
-Гілка розробки: `claude/iphone-parish-app-qlfjrc`.
+Гілка розробки: `claude/iphone-parish-app-qlfjrc`. Віджети віршів (Хоменко, `verses.json`) — у гілці `claude/cool-wright-6tbuae`, див. розділ «Віджети» в `ios/README.md`.
 
 ## Що замовлено (вимоги власника)
 Нижня панель, 5 вкладок, **«Літургія» посередині**:

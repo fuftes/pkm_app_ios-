@@ -11,6 +11,15 @@ struct MoreView: View {
                 .listRowInsets(EdgeInsets())
                 .listRowBackground(Color.clear)
 
+                // ТИМЧАСОВО: перевірка віджетів. Прибрати перед публікацією.
+                Section {
+                    NavigationLink {
+                        VerseTestView()
+                    } label: {
+                        Label("Тест віджетів (тимчасово)", systemImage: "rectangle.split.2x1")
+                    }
+                }
+
                 Section("Про нашу парафію") {
                     DisclosureGroup {
                         PageLink(title: "Парафія сьогодні", slug: "parafiya-sogodni")

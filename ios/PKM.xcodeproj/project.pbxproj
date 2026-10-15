@@ -15,7 +15,34 @@
 		C0FFEE000000000000000205 /* documents.json in Resources */ = {isa = PBXBuildFile; fileRef = C0FFEE000000000000000105 /* documents.json */; };
 		C0FFEE000000000000000206 /* gallery.json in Resources */ = {isa = PBXBuildFile; fileRef = C0FFEE000000000000000106 /* gallery.json */; };
 		C0FFEE000000000000000207 /* covers in Resources */ = {isa = PBXBuildFile; fileRef = C0FFEE000000000000000107 /* covers */; };
+		C0FFEE000000000000000300 /* verses.json in Resources */ = {isa = PBXBuildFile; fileRef = C0FFEE000000000000000108 /* verses.json */; };
+		C0FFEE000000000000000301 /* verses.json in Resources */ = {isa = PBXBuildFile; fileRef = C0FFEE000000000000000108 /* verses.json */; };
+		C0FFEE000000000000000302 /* PKMWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C0FFEE000000000000000310 /* PKMWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C0FFEE000000000000000330 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C0FFEE000000000000000007 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C0FFEE000000000000000340;
+			remoteInfo = PKMWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C0FFEE000000000000000332 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				C0FFEE000000000000000302 /* PKMWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		C0FFEE000000000000000001 /* PKM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PKM.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -27,6 +54,8 @@
 		C0FFEE000000000000000105 /* documents.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = documents.json; path = ../documents.json; sourceTree = "<group>"; };
 		C0FFEE000000000000000106 /* gallery.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = gallery.json; path = ../gallery.json; sourceTree = "<group>"; };
 		C0FFEE000000000000000107 /* covers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = covers; path = ../booklets/covers; sourceTree = "<group>"; };
+		C0FFEE000000000000000108 /* verses.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = verses.json; path = ../verses.json; sourceTree = "<group>"; };
+		C0FFEE000000000000000310 /* PKMWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PKMWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -35,10 +64,27 @@
 			path = PKM;
 			sourceTree = "<group>";
 		};
+		C0FFEE000000000000000320 /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		C0FFEE000000000000000321 /* PKMWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = PKMWidget;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		C0FFEE000000000000000009 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0FFEE000000000000000342 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -52,6 +98,8 @@
 			isa = PBXGroup;
 			children = (
 				C0FFEE000000000000000002 /* PKM */,
+				C0FFEE000000000000000320 /* Shared */,
+				C0FFEE000000000000000321 /* PKMWidget */,
 				C0FFEE000000000000000004 /* Content */,
 				C0FFEE000000000000000005 /* Products */,
 			);
@@ -68,6 +116,7 @@
 				C0FFEE000000000000000105 /* documents.json */,
 				C0FFEE000000000000000106 /* gallery.json */,
 				C0FFEE000000000000000107 /* covers */,
+				C0FFEE000000000000000108 /* verses.json */,
 			);
 			name = Content;
 			sourceTree = "<group>";
@@ -76,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				C0FFEE000000000000000001 /* PKM.app */,
+				C0FFEE000000000000000310 /* PKMWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -90,13 +140,16 @@
 				C0FFEE000000000000000008 /* Sources */,
 				C0FFEE000000000000000009 /* Frameworks */,
 				C0FFEE00000000000000000A /* Resources */,
+				C0FFEE000000000000000332 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C0FFEE000000000000000331 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				C0FFEE000000000000000002 /* PKM */,
+				C0FFEE000000000000000320 /* Shared */,
 			);
 			name = PKM;
 			packageProductDependencies = (
@@ -104,6 +157,29 @@
 			productName = PKM;
 			productReference = C0FFEE000000000000000001 /* PKM.app */;
 			productType = "com.apple.product-type.application";
+		};
+		C0FFEE000000000000000340 /* PKMWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C0FFEE000000000000000345 /* Build configuration list for PBXNativeTarget "PKMWidgetExtension" */;
+			buildPhases = (
+				C0FFEE000000000000000341 /* Sources */,
+				C0FFEE000000000000000342 /* Frameworks */,
+				C0FFEE000000000000000343 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				C0FFEE000000000000000320 /* Shared */,
+				C0FFEE000000000000000321 /* PKMWidget */,
+			);
+			name = PKMWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = PKMWidgetExtension;
+			productReference = C0FFEE000000000000000310 /* PKMWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -116,6 +192,9 @@
 				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					C0FFEE000000000000000006 = {
+						CreatedOnToolsVersion = 26.0;
+					};
+					C0FFEE000000000000000340 = {
 						CreatedOnToolsVersion = 26.0;
 					};
 				};
@@ -135,6 +214,7 @@
 			projectRoot = "";
 			targets = (
 				C0FFEE000000000000000006 /* PKM */,
+				C0FFEE000000000000000340 /* PKMWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -152,6 +232,15 @@
 				C0FFEE000000000000000205 /* documents.json in Resources */,
 				C0FFEE000000000000000206 /* gallery.json in Resources */,
 				C0FFEE000000000000000207 /* covers in Resources */,
+				C0FFEE000000000000000300 /* verses.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0FFEE000000000000000343 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0FFEE000000000000000301 /* verses.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,7 +254,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C0FFEE000000000000000341 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C0FFEE000000000000000331 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C0FFEE000000000000000340 /* PKMWidgetExtension */;
+			targetProxy = C0FFEE000000000000000330 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		C0FFEE00000000000000000D /* Debug */ = {
@@ -292,6 +396,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Support/PKM.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
@@ -325,6 +430,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Support/PKM.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
@@ -353,6 +459,60 @@
 			};
 			name = Release;
 		};
+		C0FFEE000000000000000346 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Support/PKMWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Support/PKMWidget-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "ПКМ";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = ua.if.pkm.app.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		C0FFEE000000000000000347 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Support/PKMWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Support/PKMWidget-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "ПКМ";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = ua.if.pkm.app.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -370,6 +530,15 @@
 			buildConfigurations = (
 				C0FFEE00000000000000000F /* Debug */,
 				C0FFEE000000000000000010 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C0FFEE000000000000000345 /* Build configuration list for PBXNativeTarget "PKMWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0FFEE000000000000000346 /* Debug */,
+				C0FFEE000000000000000347 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
