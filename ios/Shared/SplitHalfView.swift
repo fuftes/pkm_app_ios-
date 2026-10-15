@@ -6,22 +6,26 @@ enum SplitSide {
 
 /// Одна половина вірша (ліва або права). Використовують віджети на заблокованому екрані
 /// і тестовий екран у застосунку (попередній перегляд пари).
+///
+/// Ліва половина притиснута до правого краю, права — до лівого. Між словами всюди однаковий
+/// проміжок `layout.gap`, такий самий, як між віджетами, тож рядок читається суцільно.
 struct SplitHalfView: View {
     let verse: Verse
     let side: SplitSide
+    var gap: CGFloat = VerseStore.widgetGap
 
     var body: some View {
         GeometryReader { geometry in
             let layout = SplitLayout.make(verse: verse,
                                           columnWidth: geometry.size.width,
-                                          height: geometry.size.height)
-            VStack(alignment: .leading, spacing: 0) {
+                                          height: geometry.size.height,
+                                          gap: gap)
+            VStack(spacing: 0) {
                 ForEach(Array(layout.rows.enumerated()), id: \.offset) { _, row in
-                    SplitRowView(tokens: side == .left ? row.left : row.right,
-                                 // Ліву частину розтягуємо до правого краю, щоб текст «перетікав» у правий віджет.
-                                 justify: side == .left && !row.right.isEmpty,
-                                 layout: layout)
-                        .frame(width: geometry.size.width, height: layout.lineHeight, alignment: .leading)
+                    SplitRowView(tokens: side == .left ? row.left : row.right, layout: layout)
+                        .frame(width: geometry.size.width,
+                               height: layout.lineHeight,
+                               alignment: side == .left ? .trailing : .leading)
                 }
             }
             .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
@@ -31,34 +35,17 @@ struct SplitHalfView: View {
 
 private struct SplitRowView: View {
     let tokens: [SplitLayout.Token]
-    let justify: Bool
     let layout: SplitLayout
 
     var body: some View {
-        if justify && tokens.count > 1 {
-            HStack(spacing: 0) {
-                ForEach(Array(tokens.enumerated()), id: \.offset) { index, token in
-                    if index > 0 {
-                        Spacer(minLength: layout.spaceWidth)
-                    }
-                    styled(token)
-                        .lineLimit(1)
-                        .fixedSize()
-                }
+        HStack(spacing: layout.gap) {
+            ForEach(Array(tokens.enumerated()), id: \.offset) { _, token in
+                Text(token.text)
+                    .font(Font(layout.font as CTFont))
+                    .foregroundStyle(token.isReference ? Color.secondary : Color.primary)
+                    .lineLimit(1)
+                    .fixedSize()
             }
-        } else {
-            tokens.enumerated().reduce(Text("")) { result, item in
-                (item.offset > 0 ? result + Text(" ") : result) + styled(item.element)
-            }
-            .font(Font(layout.font as CTFont))
-            .lineLimit(1)
-            .minimumScaleFactor(0.8)
         }
-    }
-
-    private func styled(_ token: SplitLayout.Token) -> Text {
-        Text(token.text)
-            .font(Font(layout.font as CTFont))
-            .foregroundStyle(token.isReference ? Color.secondary : Color.primary)
     }
 }

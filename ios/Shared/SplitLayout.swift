@@ -5,6 +5,10 @@ import UIKit
 /// Кожен рядок ділиться на ліву й праву частину лише між словами. Читати треба рядок за рядком:
 /// ліва частина першого рядка → права частина першого рядка → ліва частина другого …
 /// Обидва віджети рахують це однаково (той самий текст, шрифт і ширина), тому половини збігаються.
+///
+/// Усі проміжки між словами однакові й дорівнюють проміжку між самими віджетами (`gap`).
+/// Ліва частина рядка притиснута до правого краю лівого віджета, права — до лівого краю правого.
+/// Тож межа між віджетами виглядає як звичайний проміжок між словами.
 struct SplitLayout: Equatable {
     struct Token: Equatable {
         let text: String
@@ -17,18 +21,19 @@ struct SplitLayout: Equatable {
     }
 
     let fontSize: CGFloat
+    /// Проміжок між словами (= проміжок між віджетами).
+    let gap: CGFloat
     let rows: [Row]
     /// Текст не вмістився навіть найменшим шрифтом і обрізаний.
     let truncated: Bool
 
     var font: UIFont { Self.font(size: fontSize) }
     var lineHeight: CGFloat { font.lineHeight }
-    var spaceWidth: CGFloat { Self.width(" ", font: font) }
 
     /// Від найбільшого до найменшого. Береться перший, з яким увесь вірш вміщається.
     static let fontSizes: [CGFloat] = [17, 16, 15, 14, 13, 12]
 
-    /// Запас по краю, щоб слово ніколи не обрізалося через різницю округлення.
+    /// Запас по зовнішньому краю, щоб слово ніколи не обрізалося через різницю округлення.
     static let safetyMargin: CGFloat = 4
 
     static func font(size: CGFloat) -> UIFont {
@@ -40,21 +45,22 @@ struct SplitLayout: Equatable {
     }
 
     /// `columnWidth` і `height` — розмір одного віджета.
-    static func make(verse: Verse, columnWidth: CGFloat, height: CGFloat) -> SplitLayout {
+    static func make(verse: Verse, columnWidth: CGFloat, height: CGFloat,
+                     gap: CGFloat = VerseStore.widgetGap) -> SplitLayout {
         let tokens = tokenize(verse)
         for size in fontSizes {
             let uiFont = Self.font(size: size)
             let maxRows = max(1, Int(floor(height / uiFont.lineHeight)))
-            let rows = fill(tokens, font: uiFont, columnWidth: columnWidth)
+            let rows = fill(tokens, font: uiFont, gap: gap, columnWidth: columnWidth)
             if rows.count <= maxRows {
-                return SplitLayout(fontSize: size, rows: rows, truncated: false)
+                return SplitLayout(fontSize: size, gap: gap, rows: rows, truncated: false)
             }
         }
         // Не вмістилося: найменший шрифт, зайві рядки відкидаємо, в кінці — «…».
         let size = fontSizes.last ?? 12
         let uiFont = Self.font(size: size)
         let maxRows = max(1, Int(floor(height / uiFont.lineHeight)))
-        var rows = Array(fill(tokens, font: uiFont, columnWidth: columnWidth).prefix(maxRows))
+        var rows = Array(fill(tokens, font: uiFont, gap: gap, columnWidth: columnWidth).prefix(maxRows))
         if var last = rows.popLast() {
             if last.right.isEmpty {
                 last.left.append(Token(text: "…", isReference: false))
@@ -63,12 +69,13 @@ struct SplitLayout: Equatable {
             }
             rows.append(last)
         }
-        return SplitLayout(fontSize: size, rows: rows, truncated: true)
+        return SplitLayout(fontSize: size, gap: gap, rows: rows, truncated: true)
     }
 
     /// Чи вміщається вірш у пару віджетів такого розміру без обрізання.
-    static func fits(_ verse: Verse, columnWidth: CGFloat, height: CGFloat) -> Bool {
-        !make(verse: verse, columnWidth: columnWidth, height: height).truncated
+    static func fits(_ verse: Verse, columnWidth: CGFloat, height: CGFloat,
+                     gap: CGFloat = VerseStore.widgetGap) -> Bool {
+        !make(verse: verse, columnWidth: columnWidth, height: height, gap: gap).truncated
     }
 
     private static func tokenize(_ verse: Verse) -> [Token] {
@@ -81,9 +88,9 @@ struct SplitLayout: Equatable {
         return tokens
     }
 
-    private static func fill(_ tokens: [Token], font: UIFont, columnWidth: CGFloat) -> [Row] {
+    private static func fill(_ tokens: [Token], font: UIFont, gap: CGFloat, columnWidth: CGFloat) -> [Row] {
         let available = columnWidth - safetyMargin
-        let space = width(" ", font: font)
+        let space = gap
         var rows: [Row] = []
         var index = 0
         while index < tokens.count {

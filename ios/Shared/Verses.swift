@@ -38,6 +38,7 @@ enum VerseStore {
         static let start = "verses.startDay"
         static let override = "verses.overrideID"
         static let lockSize = "verses.lockWidgetSize"
+        static let gap = "verses.widgetGap"
     }
 
     /// Випадкове число, створене один раз на цьому телефоні. З нього виходить особистий порядок віршів.
@@ -119,6 +120,21 @@ enum VerseStore {
             if let newValue { defaults.set(newValue, forKey: Key.override) }
             else { defaults.removeObject(forKey: Key.override) }
         }
+    }
+
+    // MARK: Проміжок між віджетами
+
+    /// Відстань між лівим і правим віджетом на заблокованому екрані, у пунктах.
+    /// Стільки ж і між усіма словами, щоб межа між віджетами виглядала як звичайний проміжок.
+    /// Точне значення iOS не повідомляє, тому його підбирають на тестовому екрані.
+    static let defaultWidgetGap: CGFloat = 12
+
+    static var widgetGap: CGFloat {
+        get {
+            let value = defaults.double(forKey: Key.gap)
+            return value > 0 ? CGFloat(value) : defaultWidgetGap
+        }
+        set { defaults.set(Double(newValue), forKey: Key.gap) }
     }
 
     // MARK: Розмір віджета на заблокованому екрані

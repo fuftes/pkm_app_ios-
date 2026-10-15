@@ -6,6 +6,7 @@ import WidgetKit
 struct VerseTestView: View {
     @State private var chosenID: Int? = VerseStore.overrideID
     @State private var search = ""
+    @State private var gap: CGFloat = VerseStore.widgetGap
 
     private var verses: [Verse] { VerseStore.all }
 
@@ -30,7 +31,7 @@ struct VerseTestView: View {
     var body: some View {
         List {
             Section {
-                PairPreview(verse: shownVerse, size: lockSize)
+                PairPreview(verse: shownVerse, size: lockSize, gap: gap)
                     .listRowInsets(EdgeInsets(top: 16, leading: 12, bottom: 16, trailing: 12))
                 VStack(alignment: .leading, spacing: 4) {
                     Text(chosenID == nil ? "Режим: автоматично (вірш дня)" : "Режим: вибрано вручну")
@@ -46,6 +47,29 @@ struct VerseTestView: View {
                 }
             } header: {
                 Text("Так виглядатиме пара на заблокованому екрані")
+            }
+
+            Section {
+                VStack(alignment: .leading, spacing: 6) {
+                    HStack {
+                        Text("Проміжок між словами")
+                        Spacer()
+                        Text("\(Int(gap)) пт")
+                            .monospacedDigit()
+                            .foregroundStyle(.secondary)
+                    }
+                    Slider(value: $gap, in: 4...30, step: 1, onEditingChanged: { editing in
+                        if !editing { saveGap() }
+                    })
+                }
+                Button("Скинути до \(Int(VerseStore.defaultWidgetGap)) пт") {
+                    gap = VerseStore.defaultWidgetGap
+                    saveGap()
+                }
+            } header: {
+                Text("Проміжок")
+            } footer: {
+                Text("Підберіть так, щоб відстань між словами всередині рядка дорівнювала відстані між двома віджетами на заблокованому екрані. Надішліть число, яке підійшло, — я зашию його як стандартне.")
             }
 
             Section("Керування") {
@@ -105,7 +129,12 @@ struct VerseTestView: View {
     }
 
     private func fits(_ verse: Verse) -> Bool {
-        SplitLayout.fits(verse, columnWidth: lockSize.width, height: lockSize.height)
+        SplitLayout.fits(verse, columnWidth: lockSize.width, height: lockSize.height, gap: gap)
+    }
+
+    private func saveGap() {
+        VerseStore.widgetGap = gap
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
     private func step(by offset: Int) {
@@ -125,12 +154,14 @@ struct VerseTestView: View {
 private struct PairPreview: View {
     let verse: Verse
     let size: CGSize
+    let gap: CGFloat
 
     var body: some View {
-        HStack(spacing: 12) {
-            SplitHalfView(verse: verse, side: .left)
+        // Відстань між половинами = проміжок між словами, як на заблокованому екрані.
+        HStack(spacing: gap) {
+            SplitHalfView(verse: verse, side: .left, gap: gap)
                 .frame(width: size.width, height: size.height)
-            SplitHalfView(verse: verse, side: .right)
+            SplitHalfView(verse: verse, side: .right, gap: gap)
                 .frame(width: size.width, height: size.height)
         }
         .padding(10)
