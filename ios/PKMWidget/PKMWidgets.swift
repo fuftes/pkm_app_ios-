@@ -18,7 +18,7 @@ struct VerseLockWidget: Widget {
                 .containerBackground(for: .widget) { Color.clear }
         }
         .configurationDisplayName("Слово на день")
-        .description("Короткий уривок із Нового Завіту на заблокованому екрані.")
+        .description("Короткий уривок зі Святого Письма на заблокованому екрані.")
         .supportedFamilies([.accessoryRectangular])
     }
 }
@@ -31,7 +31,7 @@ struct VerseHomeWidget: Widget {
             VerseHomeWidgetView(entry: entry)
         }
         .configurationDisplayName("Слово на день")
-        .description("Уривок із Нового Завіту. Щодня новий, у вашому особистому порядку.")
+        .description("Уривок зі Святого Письма. Щодня новий, у вашому особистому порядку.")
         .supportedFamilies([.systemMedium])
     }
 }

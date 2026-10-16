@@ -1,6 +1,6 @@
 import Foundation
 
-/// Один уривок із `verses.json` (Новий Завіт, переклад Івана Хоменка).
+/// Один уривок із `verses.json` (Святе Письмо в перекладі Івана Хоменка: Новий і Старий Завіт).
 struct Verse: Codable, Identifiable, Hashable {
     let id: Int
     let ref: String
@@ -78,7 +78,7 @@ enum VerseStore {
     private static var cachedOrders: [String: [Int]] = [:]
     private static let cacheLock = NSLock()
 
-    /// Перемішаний список індексів для одного «кола» з 365 днів. Після кожного кола — нове перемішування.
+    /// Перемішаний список індексів для одного «кола» (стільки днів, скільки віршів). Після кожного кола — нове перемішування.
     static func order(cycle: Int) -> [Int] {
         let key = "\(seed)-\(cycle)"
         cacheLock.lock()
