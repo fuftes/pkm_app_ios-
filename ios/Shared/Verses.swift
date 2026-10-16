@@ -42,6 +42,8 @@ enum VerseStore {
         static let measureLength = "verses.measure.length"
         static let showRef = "verses.lock.showReference"
         static let fontSize = "verses.lock.fontSize"
+        static let autoFont = "verses.lock.autoFont"
+        static let showDash = "verses.lock.showDash"
     }
 
     /// Випадкове число, створене один раз на цьому телефоні. З нього виходить особистий порядок віршів.
@@ -146,8 +148,23 @@ enum VerseStore {
         set { defaults.set(newValue, forKey: Key.showRef) }
     }
 
-    /// Розмір шрифту на віджеті заблокованого екрана.
-    static let defaultLockFontSize: CGFloat = 15
+    /// Чи ставити тире перед посиланням («— Ів 3,16»).
+    static var showDash: Bool {
+        get { defaults.object(forKey: Key.showDash) as? Bool ?? true }
+        set { defaults.set(newValue, forKey: Key.showDash) }
+    }
+
+    /// Найменший шрифт, до якого віджет може сам стиснути текст.
+    static let minLockFontSize: CGFloat = 11
+
+    /// Чи підбирати розмір шрифту автоматично (від найбільшого до `minLockFontSize`), щоб вірш вмістився.
+    static var autoFont: Bool {
+        get { defaults.object(forKey: Key.autoFont) as? Bool ?? true }
+        set { defaults.set(newValue, forKey: Key.autoFont) }
+    }
+
+    /// Розмір шрифту на віджеті заблокованого екрана. З автопідбором — найбільший, з якого починаємо.
+    static let defaultLockFontSize: CGFloat = 17
 
     static var lockFontSize: CGFloat {
         get { let value = defaults.double(forKey: Key.fontSize); return value > 0 ? CGFloat(value) : defaultLockFontSize }

@@ -9,11 +9,16 @@ struct VerseTestView: View {
     @State private var measuring = VerseStore.measureEnabled
     @State private var length = VerseStore.measureLength
     @State private var withReference = VerseStore.showReference
+    @State private var withDash = VerseStore.showDash
+    @State private var autoFont = VerseStore.autoFont
     @State private var fontSize = VerseStore.lockFontSize
     @State private var chosenID: Int? = VerseStore.overrideID
     @State private var search = ""
 
-    private var verses: [Verse] { VerseStore.all }
+    /// Усі вірші від найкоротших до найдовших (за кількістю знаків у тексті).
+    private var verses: [Verse] {
+        VerseStore.all.sorted { ($0.text.count, $0.id) < ($1.text.count, $1.id) }
+    }
 
     /// Розмір віджета. Відомий, коли віджет уже стоїть на заблокованому екрані; інакше — приблизний.
     private var lockSize: CGSize { VerseStore.lockWidgetSize ?? CGSize(width: 160, height: 72) }
@@ -26,12 +31,13 @@ struct VerseTestView: View {
 
     private var previewContent: LockContent {
         measuring
-            ? .filler(length: length, withReference: withReference)
-            : .verse(shownVerse, withReference: withReference)
+            ? .filler(length: length, withReference: withReference, withDash: withDash)
+            : .verse(shownVerse, withReference: withReference, withDash: withDash)
     }
 
     private var calculatedMax: Int {
-        LockFit.maxLength(in: lockSize, fontSize: fontSize, withReference: withReference)
+        LockFit.maxLength(in: lockSize, maxSize: fontSize, auto: autoFont,
+                          withReference: withReference, withDash: withDash)
     }
 
     private var filtered: [Verse] {
@@ -45,7 +51,7 @@ struct VerseTestView: View {
     var body: some View {
         List {
             Section {
-                LockTextView(content: previewContent, fontSize: fontSize)
+                LockTextView(content: previewContent, maxFontSize: fontSize, autoFont: autoFont)
                     .frame(width: lockSize.width, height: lockSize.height)
                     .padding(12)
                     .foregroundStyle(.white)
@@ -92,19 +98,26 @@ struct VerseTestView: View {
                 Toggle("Показувати посилання", isOn: $withReference)
                     .onChange(of: withReference) { save() }
                 if withReference {
-                    Text("У вимірюванні — найдовше: «\(LockContent.longestReference)», \(LockContent.longestReference.count) знаків.")
+                    Toggle("Тире перед посиланням (—)", isOn: $withDash)
+                        .onChange(of: withDash) { save() }
+                    let longest = LockContent.longestReference(withDash: withDash)
+                    Text("У вимірюванні — найдовше: «\(longest)», \(longest.count) знаків.")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
 
-                Stepper(value: $fontSize, in: 11...20, step: 1) {
-                    Text("Шрифт: \(Int(fontSize)) пт")
+                Toggle("Шрифт підбирається сам", isOn: $autoFont)
+                    .onChange(of: autoFont) { save() }
+                Stepper(value: $fontSize, in: 11...22, step: 1) {
+                    Text(autoFont
+                         ? "Найбільший шрифт: \(Int(fontSize)) пт (зменшується до \(Int(VerseStore.minLockFontSize)))"
+                         : "Шрифт: \(Int(fontSize)) пт")
                 }
                 .onChange(of: fontSize) { save() }
             } header: {
                 Text("Вимірювання місткості")
             } footer: {
-                Text("Увімкніть режим, заблокуйте телефон і дивіться на віджет. Додавайте знаки, доки текст не обріжеться «…». Остання кількість без «…» — і є місткість. Надішліть її мені разом із моделлю iPhone.")
+                Text("Увімкніть режим, заблокуйте телефон і дивіться на віджет. Додавайте знаки, доки текст не обріжеться «…». Остання кількість без «…» — і є місткість. З автопідбором шрифту це місткість при найменшому шрифті (11 пт); без нього — при вибраному. Надішліть мені число разом із моделлю iPhone.")
             }
 
             Section("Вірш вручну") {
@@ -147,7 +160,7 @@ struct VerseTestView: View {
                 }
             }
 
-            Section("Усі вірші (\(filtered.count))") {
+            Section("Усі вірші — від найкоротших (\(filtered.count))") {
                 ForEach(filtered) { verse in
                     Button {
                         choose(verse.id)
@@ -164,7 +177,8 @@ struct VerseTestView: View {
     }
 
     private func fits(_ verse: Verse) -> Bool {
-        LockFit.fits(verse, in: lockSize, fontSize: fontSize, withReference: withReference)
+        LockFit.fits(verse, in: lockSize, maxSize: fontSize, auto: autoFont,
+                     withReference: withReference, withDash: withDash)
     }
 
     private func change(by delta: Int) {
@@ -188,6 +202,8 @@ struct VerseTestView: View {
         VerseStore.measureEnabled = measuring
         VerseStore.measureLength = length
         VerseStore.showReference = withReference
+        VerseStore.showDash = withDash
+        VerseStore.autoFont = autoFont
         VerseStore.lockFontSize = fontSize
         VerseStore.overrideID = chosenID
         WidgetCenter.shared.reloadAllTimelines()

@@ -14,7 +14,7 @@ struct PKMWidgetBundle: WidgetBundle {
 struct VerseLockWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: "VerseLock", provider: VerseProvider(lockScreen: true)) { entry in
-            LockTextView(content: entry.content, fontSize: entry.fontSize)
+            LockTextView(content: entry.content, maxFontSize: entry.fontSize, autoFont: entry.autoFont)
                 .containerBackground(for: .widget) { Color.clear }
         }
         .configurationDisplayName("Слово на день")
@@ -61,12 +61,12 @@ struct VerseHomeWidgetView: View {
 #Preview(as: .accessoryRectangular) {
     VerseLockWidget()
 } timeline: {
-    VerseEntry(date: .now, content: .verse(VerseStore.all[0], withReference: true), fontSize: 15)
-    VerseEntry(date: .now, content: .filler(length: 90, withReference: true), fontSize: 15)
+    VerseEntry(date: .now, content: .verse(VerseStore.all[0], withReference: true), fontSize: 17, autoFont: true)
+    VerseEntry(date: .now, content: .filler(length: 90, withReference: true), fontSize: 17, autoFont: true)
 }
 
 #Preview(as: .systemMedium) {
     VerseHomeWidget()
 } timeline: {
-    VerseEntry(date: .now, content: .verse(VerseStore.all[0], withReference: true), fontSize: 15)
+    VerseEntry(date: .now, content: .verse(VerseStore.all[0], withReference: true), fontSize: 17, autoFont: true)
 }
